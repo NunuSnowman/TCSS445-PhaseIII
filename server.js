@@ -53,28 +53,45 @@ app.listen(port, () => {
 
 /* ########### ALAN TESTING STUFF BELOW ########## */
 
-app.get('/', (req, res) => {
-  if (error) throw error
-  console.log('sent index.html')
-  res.send('index.html')
-})
+getQueryExp('/test', 'SELECT book_id, title FROM book ORDER BY book_id')
+getQueryExp('/test2', 'SELECT * FROM user')
 
-app.get('/test', (req, res) => {
+// app.get('/', (req, res) => {
+//   if (error) throw error
+//   console.log('sent index.html')
+//   res.send('index.html')
+// })
 
-  let query = `SELECT book_id, title FROM book ORDER BY book_id`
+// app.get('/test', (req, res) => {
 
-  db.query(query, (error, results) => {
-    if (error) throw error
-    res.json(results)
+//   let query = `SELECT book_id, title FROM book ORDER BY book_id`
+
+//   db.query(query, (error, results) => {
+//     if (error) throw error
+//     res.json(results)
+//   })
+// })
+
+// app.get('/test2', (req, res) => {
+
+//   let query = `SELECT * FROM user`
+
+//   db.query(query, (error, results) => {
+//     if (error) throw error
+//     console.log(results)
+//     res.send(results)
+//   })
+// })
+
+
+
+
+// ######
+function getQueryExp(xhrPath, query) {
+  return app.get(xhrPath, (req, res) => {
+    db.query(query, (qErr, qRes) => {
+      if (qErr) throw qErr
+      res.send(qRes)
+    })
   })
-})
-
-app.get('/test2', (req, res) => {
-
-  let query = `SELECT * FROM user`
-
-  db.query(query, (error, results) => {
-    if (error) throw error
-    res.json(results)
-  })
-})
+}

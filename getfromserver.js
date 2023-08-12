@@ -50,7 +50,7 @@ button2.onclick = () => {
 function displayTest(result) {
     divResponse.innerText = "";
     resultJSON = JSON.parse(result)
-    console.table(resultJSON)
+    //console.table(resultJSON)
     stringProps = ""
     Object.getOwnPropertyNames(resultJSON[0]).forEach(property=>{
         stringProps += property+','
