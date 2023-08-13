@@ -45,6 +45,25 @@ app.get('/borrowed', (req, res) => {
   });
 });
 
+app.get('/addBook', (req, res) => {
+  let dbQuery = `
+    INSERT INTO book(ISBN,book_id,title,author,subject,publish_year,edition)
+    VALUES(
+      ${req.query.isbn},
+      ${req.query.bookId},
+      ${req.query.title},
+      ${req.query.author},
+      ${req.query.subject},
+      ${req.query.publishYear},
+      ${req.query.edition}
+    )
+  `
+  db.query(dbQuery, (error, results) => {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
 const port = 3000
 
 app.listen(port, () => {

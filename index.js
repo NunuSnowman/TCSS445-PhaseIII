@@ -119,6 +119,22 @@ $(document).ready(function () {
   fetchBorrowed();
   fetchBooks();
   fetchUsers();
+
+  function addBook(isbn, bookId, title, author, subject=null, publishYear=null, edition=null) {
+    let fetchURL = `
+      http://localhost:3000/addBook?
+      ISBN=${isbn}&
+      book_id=${bookId}&
+      title=${title}&
+      author=${author}&
+      subject=${subject}&
+      publishYeah=${publishYear}&
+      edition=${edition}
+    `
+    fetch(fetchURL)
+    .then(response=>response.json())
+    .catch(err=>console.error("Error adding book to database:", err))
+  }
 });
 
 
