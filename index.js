@@ -167,7 +167,7 @@ $(document).ready(function () {
 
     tableRows.forEach(row=>{
       
-      let userId = Number(row.querySelectorAll('td')[0].innerText)
+      let userId = row.querySelectorAll('td')[0].innerText
       let deleteButton = row.querySelector('a')
 
       deleteButton.onclick = function() {
