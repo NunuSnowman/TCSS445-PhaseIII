@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
 //An Express.js middleware setup that enables CORS for the Express application
-app.use(cors('*'));
+app.use(cors());
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -24,7 +24,7 @@ db.connect((err) => {
 });
 
 app.get('/book', (req, res) => {
-  db.query('SELECT * FROM book', (error, results) => {
+  db.query('SELECT * FROM book ORDER BY book_id', (error, results) => {
     if (error) throw error;
     res.json(results);
   });
@@ -46,18 +46,13 @@ app.get('/borrowed', (req, res) => {
 });
 
 app.get('/addBook', (req, res) => {
-  let dbQuery = `
-    INSERT INTO book(ISBN,book_id,title,author,subject,publish_year,edition)
-    VALUES(
-      ${req.query.isbn},
-      ${req.query.bookId},
-      ${req.query.title},
-      ${req.query.author},
-      ${req.query.subject},
-      ${req.query.publishYear},
-      ${req.query.edition}
-    )
-  `
+  let publishYear, edition
+  
+  publishYear = req.query.publishYear != null ? req.query.publishYear : null
+  edition = req.query.edition != null ? `"${req.query.edition}"` : null
+
+
+  let dbQuery = `INSERT INTO book (ISBN,book_id,title,author,subject,publish_year,edition) VALUES ("${req.query.isbn}",${req.query.bookId},"${req.query.title}","${req.query.author}","${req.query.subject}",${publishYear},${edition})`
   db.query(dbQuery, (error, results) => {
     if (error) throw error;
     res.json(results);

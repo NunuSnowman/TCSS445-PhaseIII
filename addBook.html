@@ -217,17 +217,114 @@
                                     <input type="text" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">
                                 </div>
+                                <!--
                                 <button type="submit" class="btn btn-success">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
-
+                                -->
                             </form>
+                            <button id="buttonAddBook">Add Book</button>
                         </div>
                     </div>
                 </div>
 
             </div>
+            <script type="text/javascript">
+        
+                let submitButton = document.querySelector("#buttonAddBook")
+                
+                newBook = {
+                    isbn: undefined, 
+                    bookId: undefined, 
+                    title: undefined, 
+                    author: undefined,
+                    subject: undefined,
+                    publishYear: undefined, 
+                    edition: undefined
+                }
+                
+                let defaultBorder = null
+
+                function submitButtonClick() {
+                    
+                    console.debug("[Add Book clicked]")
+                    
+                    form = document.querySelectorAll('form')[1]
+                    inputs = form.querySelectorAll('input')
+                    select = form.querySelector('select')
+                    selectIndex = select.selectedIndex
+                    selectText = select.options[selectIndex].innerText
+                    
+                    if (!defaultBorder) defaultBorder = window.getComputedStyle(inputs[0]).border
+
+                    inputs.forEach(input=> {
+                        input.style.border = defaultBorder
+                        input.onkeydown = function() {
+                            this.style.border = defaultBorder
+                        }
+                    })
+
+                    select.onchange = function() {
+                        this.style.border = defaultBorder
+                    }
+
+                    select.style.border = defaultBorder
+                    errorBorder = "solid 2px #f00"
+
+                    if (inputs[0].value === "") {
+                        inputs[0].style.border = errorBorder
+                        return alert("ISBN cannot be blank!")
+                    } else if (inputs[1].value === "" || Number(inputs[1].value) < 0) {
+                        inputs[1].style.border = errorBorder
+                        return alert("Book_ID must be a positive number")
+                    } else if (inputs[2].value === "") {
+                        inputs[2].style.border = errorBorder
+                        return alert("Book Title cannot be blank!")
+                    } else if (inputs[3].value === "") {
+                        inputs[3].style.border = errorBorder
+                        return alert("Author cannot be blank!")
+                    } else if (selectIndex == 0) {
+                        select.style.border = errorBorder
+                        return alert("You must pick a subject!")
+                    }
+        
+                    newBook.isbn = inputs[0].value
+                    newBook.bookId = Number(inputs[1].value)
+                    newBook.title = inputs[2].value
+                    newBook.author = inputs[3].value
+                    newBook.subject = selectText
+                    newBook.publishYear = inputs[4].value==="" ? null : Number(inputs[4].value)
+                    newBook.edition = inputs[5].value==="" ? null : inputs[5].value
+        
+                    console.log(newBook)
+
+                    console.debug("[Adding book to database...]")
+
+                    addBook(
+                        newBook.isbn, 
+                        newBook.bookId, 
+                        newBook.title, 
+                        newBook.author, 
+                        newBook.subject, 
+                        newBook.publishYear, 
+                        newBook.edition
+                    )
+
+                    // clear inputs/select after book added
+                    inputs.forEach(input=>{
+                        input.value = ""
+                    })
+                    select.selectedIndex = 0
+
+                    alert(" Book successfully added!")
+
+                    console.debug("[completed running]")
+                }
+        
+                submitButton.addEventListener('click', submitButtonClick)
+            </script>
     </main>
     <!--Main contents end-->
+    
 </body>
 
 </html>
