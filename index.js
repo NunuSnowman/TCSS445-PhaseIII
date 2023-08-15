@@ -137,10 +137,19 @@ $(document).ready(function () {
   manageBooks = function() {
     let i = 0
     tableRows = Array.from(document.querySelectorAll('tbody tr'))
-    console.debug(tableRows)
-    tableRows.forEach(tr=>{
-      let bookId = tr.querySelector('td')[1].innerText
-      console.debug(i++, bookId)
+
+    tableRows.forEach(row=>{
+
+      let bookId = row.querySelectorAll('td')[1].innerText
+      let deleteButton = row.querySelector('a')
+      
+      deleteButton.onclick = function() {
+        let confirmDelete = confirm("Are you sure you want to delete book_id "+bookId+"?")
+        if (confirmDelete) {
+          deleteBook(bookId)
+          fetchBooks()
+        }
+      }
     })
   }
 
