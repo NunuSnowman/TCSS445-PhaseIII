@@ -74,6 +74,7 @@ $(document).ready(function () {
           `;
           tableBody.appendChild(row);
         });
+        manageUsers()
       })
       .catch(error => {
         console.error('Error fetching book data:', error);
@@ -131,11 +132,18 @@ $(document).ready(function () {
     let fetchURL = `http://localhost:3000/deleteBook?bookId=${bookId}`
     fetch(fetchURL)
     .then(response=>response.json())
-    .catch(err=>console.error("Error adding book to database:", err))
+    .catch(err=>console.error("Error removing book from database:", err))
+  }
+  
+  deleteUser = function(userId) {
+    let fetchURL = `http://localhost:3000/deleteUser?userId=${userId}`
+    fetch(fetchURL)
+    .then(response=>response.json())
+    .catch(err=>console.error("Error removing user from database:", err))
   }
 
   manageBooks = function() {
-    let i = 0
+    
     tableRows = Array.from(document.querySelectorAll('tbody tr'))
 
     tableRows.forEach(row=>{
@@ -148,6 +156,25 @@ $(document).ready(function () {
         if (confirmDelete) {
           deleteBook(bookId)
           fetchBooks()
+        }
+      }
+    })
+  }
+
+  manageUsers = function() {
+    
+    tableRows = Array.from(document.querySelectorAll('tbody tr'))
+
+    tableRows.forEach(row=>{
+      
+      let userId = Number(row.querySelectorAll('td')[0].innerText)
+      let deleteButton = row.querySelector('a')
+
+      deleteButton.onclick = function() {
+        let confirmDelete = confirm("Are you sure you want to delete User_ID "+userId+"?")
+        if (confirmDelete) {
+          deleteUser(userId)
+          fetchUsers()
         }
       }
     })

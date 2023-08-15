@@ -63,7 +63,15 @@ app.get('/deleteBook', (req, res) => {
   let dbQuery = `DELETE FROM book WHERE book_id = ${req.query.bookId}`
   db.query(dbQuery, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.send(results);
+  });
+})
+
+app.get('/deleteUser', (req, res) => {
+  let dbQuery = `DELETE FROM user WHERE user_id = ${req.query.userId}`
+  db.query(dbQuery, (error, results) => {
+    if (error) throw error;
+    res.send(results);
   });
 })
 
