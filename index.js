@@ -29,7 +29,6 @@ $(document).ready(function () {
             <td>${book.publish_year}</td>
             <td>${book.edition}</td>
             <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
               <a href="#" class="btn btn-danger btn-sm">Delete</a>
             </td>
           `;
@@ -70,7 +69,6 @@ $(document).ready(function () {
             <td>${user.password}</td>
             <td>${formattedDate}</td>
             <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
               <a href="#" class="btn btn-danger btn-sm">Delete</a>
             </td>
           `;
@@ -137,8 +135,13 @@ $(document).ready(function () {
   }
 
   manageBooks = function() {
-    deletes = document.querySelectorAll('a.btn.btn-danger')
-    console.debug('###',deletes)
+    let i = 0
+    tableRows = Array.from(document.querySelectorAll('tbody tr'))
+    console.debug(tableRows)
+    tableRows.forEach(tr=>{
+      let bookId = tr.querySelector('td')[1].innerText
+      console.debug(i++, bookId)
+    })
   }
 
 });

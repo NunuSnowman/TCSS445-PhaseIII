@@ -52,7 +52,6 @@ app.get('/addBook', (req, res) => {
   publishYear = req.query.publishYear != null ? req.query.publishYear : null
   edition = req.query.edition != null ? `"${req.query.edition}"` : null
 
-
   let dbQuery = `INSERT INTO book (ISBN,book_id,title,author,subject,publish_year,edition) VALUES ("${req.query.isbn}",${req.query.bookId},"${req.query.title}","${req.query.author}","${req.query.subject}",${publishYear},${edition})`
   db.query(dbQuery, (error, results) => {
     if (error) throw error;
@@ -105,9 +104,6 @@ getQueryExp('/test2', 'SELECT * FROM user')
 //     res.send(results)
 //   })
 // })
-
-
-
 
 // ######
 function getQueryExp(xhrPath, query) {
