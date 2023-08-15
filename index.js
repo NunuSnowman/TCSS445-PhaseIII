@@ -35,6 +35,7 @@ $(document).ready(function () {
           `;
           tableBody.appendChild(row);
         });
+        manageBooks()
       })
       .catch(error => {
         console.error('Error fetching book data:', error);
@@ -127,6 +128,17 @@ $(document).ready(function () {
     .then(response=>response.json())
     .catch(err=>console.error("Error adding book to database:", err))
   }
+
+  deleteBook = function(bookId) {
+    let fetchURL = `http://localhost:3000/deleteBook?bookId=${bookId}`
+    fetch(fetchURL)
+    .then(response=>response.json())
+    .catch(err=>console.error("Error adding book to database:", err))
+  }
+
+  manageBooks = function() {
+    deletes = document.querySelectorAll('a.btn.btn-danger')
+    console.debug('###',deletes)
+  }
+
 });
-
-

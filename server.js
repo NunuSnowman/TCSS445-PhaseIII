@@ -3,6 +3,7 @@ const express = require('express');
 const mysql = require('mysql');
 // Import the cors middleware
 const cors = require('cors');
+const e = require('express');
 const app = express();
 //An Express.js middleware setup that enables CORS for the Express application
 app.use(cors());
@@ -58,6 +59,14 @@ app.get('/addBook', (req, res) => {
     res.json(results);
   });
 });
+
+app.get('/deleteBook', (req, res) => {
+  let dbQuery = `DELETE FROM book WHERE book_id = ${req.query.bookId}`
+  db.query(dbQuery, (error, results) => {
+    if (error) throw error;
+    res.json(results);
+  });
+})
 
 const port = 3000
 
