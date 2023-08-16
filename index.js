@@ -25,7 +25,7 @@ $(document).ready(function () {
     };
 
     $.ajax({
-      url: 'addBook',
+      url: 'http://localhost:3000/addBook',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(bookData),
@@ -98,7 +98,7 @@ $(document).ready(function () {
   function fetchUsers() {
     console.log("fetchUsers run");
 
-    fetch('user')
+    fetch('http://localhost:3000/user')
       .then(response => response.json())
       .then(data => {
         console.log("User data fetched successfully");
@@ -138,7 +138,7 @@ $(document).ready(function () {
 });
 
 function fetchTotalBooksCount() {
-  fetch('book/totalCount')
+  fetch('http://localhost:3000/book/totalCount')
     .then(response => response.json())
     .then(data => {
       const totalBooksCountElement = document.getElementById('totalBooksCount');
@@ -150,7 +150,7 @@ function fetchTotalBooksCount() {
 }
 
 function fetchTotalUsersCount() {
-  fetch('user/totalUsersCount')
+  fetch('http://localhost:3000/user/totalUsersCount')
     .then(response => response.json())
     .then(data => {
       const totalUsersCountElement = document.getElementById('totalUsersCount');
@@ -162,7 +162,7 @@ function fetchTotalUsersCount() {
 }
 
 function fetchTotalLoansCount() {
-  fetch('borrowed/totalLoansCount')
+  fetch('http://localhost:3000/borrowed/totalLoansCount')
     .then(response => response.json())
     .then(data => {
       const totalLoansCountElement = document.getElementById('totalLoansCount');
@@ -177,7 +177,7 @@ function fetchTotalLoansCount() {
  function fetchDashUsers() {
   console.log("fetchUsers run");
 
-  fetch('user')
+  fetch('http://localhost:3000/user')
     .then(response => response.json())
     .then(data => {
       console.log("User data fetched successfully");
@@ -254,7 +254,7 @@ function fetchDashLoans() {
 function fetchBooks() {
   console.log("fetchBooks run");
 
-  fetch('book?sort=book_id')
+  fetch('http://localhost:3000/book?sort=book_id')
     .then(response => response.json())
     .then(data => {
       console.log("Book data fetched successfully");
@@ -285,7 +285,7 @@ function fetchBooks() {
 function fetchUsers() {
   console.log("fetchUsers run");
 
-  fetch('user')
+  fetch('http://localhost:3000/user')
     .then(response => response.json())
     .then(data => {
       console.log("User data fetched successfully");
@@ -324,7 +324,7 @@ function fetchUsers() {
 function fetchBorrowed() {
   console.log("fetchBorrowed run");
 
-  fetch('borrowed')
+  fetch('http://localhost:3000/borrowed')
     .then(response => response.json())
     .then(data => {
       console.log("Borrowed data fetched successfully");
